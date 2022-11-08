@@ -6,7 +6,7 @@ public class RunGame {
     public static int numberHeroes = 1;
     public static Player player;
 
-    public static void runGame(){
+    public static void runGame() throws IOException {
         // Setting up game variables
         Scanner ip = new Scanner(System.in);
         char gameInput=0;
@@ -73,10 +73,11 @@ public class RunGame {
                     System.out.println("Invalid gameInput. Try again.");
             }
 
+            gameTurn++;
         }
     }
 
-    public static void setupGame(){
+    public static void setupGame() throws IOException {
         // Setup Game variables
         Scanner ip = new Scanner(System.in);
         System.out.println("\n=======================================\n");
@@ -98,8 +99,8 @@ public class RunGame {
 
         board = new Board(size);
         numberHeroes = Player.getNumberHeroes();
-        player = new Player("a",1);
-
+        player = new Player("Yours Truly",1);
+        Player.heroSet(numberHeroes);
 
     }
 }

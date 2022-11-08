@@ -1,9 +1,7 @@
 import java.io.*;
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
-public class HeroType {
+public class Item {
     String name;
     int level;
     int HP;

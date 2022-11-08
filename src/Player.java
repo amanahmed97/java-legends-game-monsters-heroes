@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 class Player {
@@ -7,6 +8,7 @@ class Player {
     String playerMarker;
     int xPosition = 0;
     int yPosition = 0;
+    public static ArrayList<HeroType> heroes;
 
     public Player(String name, int team) {
         this.name = name;
@@ -14,6 +16,7 @@ class Player {
         this.xPosition = 0;
         this.yPosition = 0;
         RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
+        heroes = new ArrayList<HeroType>();
     }
 
     public Player(String name, int team, String playerMarker) {
@@ -23,6 +26,7 @@ class Player {
         this.xPosition = 0;
         this.yPosition = 0;
         RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
+        heroes = new ArrayList<HeroType>();
     }
 
     public int scoreUpdate(int s) {
@@ -47,36 +51,57 @@ class Player {
 
     public static int getNumberHeroes() {
         // Default set to 1 player Hero
-        int numberPlayers = 1;
+        int numberHeroes = 1;
         Scanner ip = new Scanner(System.in);
 
         System.out.print("Enter number of heroes to play - Max 3 : ");
         try {
-            numberPlayers = ip.nextInt();
-            while (numberPlayers<1 || numberPlayers>3) {
+            numberHeroes = ip.nextInt();
+            while (numberHeroes<1 || numberHeroes>3) {
                 System.out.println("Enter value between 1 to 3 : ");
-                numberPlayers = ip.nextInt();
+                numberHeroes = ip.nextInt();
             }
         } catch (Exception e) {
             System.out.println("Enter valid value.");
-            numberPlayers = getNumberHeroes();
+            numberHeroes = getNumberHeroes();
         }
 
-        return numberPlayers;
+        return numberHeroes;
     }
 
-    public static Player[] playerSet(int numberPlayers) {
+    public static void heroSet(int numberHeroes) throws IOException {
+        HeroType.populate();
+
         Scanner ip = new Scanner(System.in);
-        Player[] players = new Player[numberPlayers];
+        int heroSelect=0;
 
-        for (int i = 0; i < numberPlayers; i++) {
+        for (int i = 0; i < numberHeroes; i++) {
             // Player Information input
-            System.out.println("Player " + (i + 1) + " :");
-            System.out.print("Please enter your name:");
-            players[i] = new Player(ip.nextLine(), i + 1);
-            System.out.println("Hello " + players[i].name + "!\n");
-        }
+            System.out.println("Choose Hero " + (i + 1) + " :");
+            HeroType.printHeroList();
+            System.out.print("Enter Hero Number : ");
+            try {
+                heroSelect = ip.nextInt();
+                heroes.add(HeroType.heroList.get(heroSelect-1));
 
-        return players;
+                while(heroSelect<0 || heroSelect>HeroType.heroList.size()){
+                    System.out.println("Input valid Hero number : ");
+                    heroSelect = ip.nextInt();
+                }
+
+            }catch (Exception e){
+                System.out.println("Select valid Hero number.");
+                heroSet(numberHeroes);
+            }
+        }
+        printHeroes();
     }
+
+    public static void printHeroes(){
+        System.out.println("Your Heroes : ");
+        for (int i=0; i<heroes.size();i++)
+            System.out.println("["+(i+1)+"] "+heroes.get(i).name);
+    }
+
+
 }

@@ -1,8 +1,9 @@
+import java.io.IOException;
 import java.util.*;
 
 public class RunGameMain {
 
-    public static void runGameMenu(){
+    public static void runGameMenu() throws IOException {
 
         //Initialize the objects of the game
         Scanner ip = new Scanner(System.in);
@@ -10,7 +11,7 @@ public class RunGameMain {
 
         // Input for the game
         System.out.print("\nWelcome to the Java Legends game!!!");
-        System.out.println("\n=======================================\n");
+        System.out.println("\n=======================================\nLEGENDS - HEROES AND MONSTERS");
 
 
         // Game Menu
