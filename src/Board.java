@@ -1,11 +1,12 @@
 public class Board {
     int rows;
     int columns;
-    int dimension;
+    public static int dimension;
 
     public Board(int r, int c) {
+        rows = r;
+        columns = c;
         dimension = r;
-        dimension = c;
     }
 
     BoardMarker[][] BoardMap;
@@ -26,27 +27,30 @@ public class Board {
         for (int i = 0; i < dimension; i++) {
 
             for (int k = 0; k < dimension; k++) {
-                if (dimension * dimension > 9) System.out.print("+----");
-                else System.out.print("+---");
+//                if (dimension * dimension > 9) System.out.print("+----");
+//                else
+                System.out.print("+-----");
             }
             System.out.print("+\n");
 
             for (int j = 0; j < dimension; j++) {
                 if (BoardMap[i][j].symbol == '-')
-                    System.out.print("| " + BoardMap[i][j].position);
+                    System.out.print("|   ");
                 else
-                    System.out.print("| " + BoardMap[i][j].symbol);
-                if ((dimension * dimension > 9 && (i * dimension + j) < 9) || (dimension * dimension > 9 && BoardMap[i][j].symbol != '-'))
-                    System.out.print("  ");
-                else
-                    System.out.print(" ");
+                System.out.print("|  " + BoardMap[i][j].symbol);
+
+//                if ((dimension * dimension > 9 && (i * dimension + j) < 9) || (dimension * dimension > 9 && BoardMap[i][j].symbol != '-'))
+//                    System.out.print("   ");
+//                else
+                System.out.print("  ");
             }
             System.out.print("|\n");
         }
         //Last line pattern
         for (int i = 1; i <= dimension; i++) {
-            if (dimension * dimension > 9) System.out.print("+----");
-            else System.out.print("+---");
+//            if (dimension * dimension > 9) System.out.print("+----");
+//            else
+            System.out.print("+-----");
         }
         System.out.print("+\n");
     }
@@ -58,6 +62,15 @@ public class Board {
 
     public int getBoardSymbol(int xpos, int ypos) {
         return BoardMap[xpos][ypos].symbol;
+    }
+
+    public static boolean validPosition(int newXPosition, int newYPosition){
+        if( newXPosition<0 || newYPosition<0 || newXPosition>dimension || newYPosition>dimension ) {
+            System.out.println("Invalid move.");
+            return false;
+        }
+
+        return true;
     }
 
 }

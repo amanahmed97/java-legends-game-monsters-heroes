@@ -2,59 +2,104 @@ import java.util.*;
 import java.io.*;
 
 public class RunGame {
+    public static Board board;
+    public static int numberHeroes = 1;
+    public static Player player;
 
     public static void runGame(){
+        // Setting up game variables
         Scanner ip = new Scanner(System.in);
-        int gameOption=0;
-        
+        char gameInput=0;
+        int gameTurn = 1;
+        boolean gameCheck = false;
+        int newXPosition;
+        int newYPosition;
+
+        System.out.println("Starting game");
+        setupGame();
+
         while (true) {
-            System.out.println("\n=======================================\n");
-            System.out.println("\nGame Menu:\n1.Play Game \n2.Scores\n3.Exit");
-            System.out.print("Enter:");
+            System.out.println("\n=================================================\n");
+            System.out.println("\nGame Turn " + gameTurn);
+            board.printBoard();
+
+            System.out.println("\nMovement: w - Move Up, s - Move Down, a - Move Left, d - Move Right");
+            System.out.println("Actions: i - info, m- Enter Market, q - Quit");
+            System.out.print("Enter: ");
+
 
             try {
-                gameOption = ip.nextInt();
+                gameInput = ip.next().charAt(0);
+                gameInput = Character.toLowerCase(gameInput);
+
             } catch (Exception e) {
                 // Flush the input token, to ask input again
-                ip.next();
-                gameOption=0;
+//                ip.next();
+                gameInput=0;
+                System.out.println("Enter valid option.");
             }
 
-            switch (gameOption) {
-                case 1:
-                    System.out.println("\n=======================================\n");
-                    System.out.println("\nTic Tac Toe");
-//                    RulesTicTacToe.printRules();
-                    System.out.print("Choose Board size : ");
-                    int size = 3;
-                    try {
-                        size = ip.nextInt();
-                        if (size < 3 || size > 1000) throw new Exception("Out of valid range");
-                    } catch (InputMismatchException e) {
-                        ip.next();
-                        System.out.println("Enter valid board size.");
-                        break;
-                    } catch (Exception e) {
-                        System.out.println(e.toString() + "\nEnter valid board size.");
-                        break;
-                    }
-
-                    RunGameMain.board = new Board(size);
-                    RunGame.runGame();
+            switch (gameInput) {
+                case 'w':
+                    newXPosition = player.xPosition-1;
+                    if (Board.validPosition(newXPosition, player.yPosition))
+                        player.setPosition(newXPosition, player.yPosition);
                     break;
-                case 2:
-                    System.out.println("\n=======================================\n");
-//                    PlayerScore.printScore(numberHeroes, players);
+                case 'a':
+                    newYPosition = player.yPosition-1;
+                    if (Board.validPosition(player.xPosition, newYPosition))
+                        player.setPosition(player.xPosition, newYPosition);
                     break;
-                case 3:
+                case 's':
+                    newXPosition = player.xPosition+1;
+                    if (Board.validPosition(newXPosition, player.yPosition))
+                        player.setPosition(newXPosition, player.yPosition);
+                    break;
+                case 'd':
+                    newYPosition = player.yPosition+1;
+                    if (Board.validPosition(player.xPosition, newYPosition))
+                        player.setPosition(player.xPosition, newYPosition);
+                    break;
+                case 'i':
+                    break;
+                case 'm':
+                    break;
+                case 'q':
                     System.out.println("\n=======================================\n");
                     System.out.println("Thank You for playing!!\nSee you soon!");
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Invalid gameOption. Try again.");
+                    System.out.println("Invalid gameInput. Try again.");
             }
 
         }
+    }
+
+    public static void setupGame(){
+        // Setup Game variables
+        Scanner ip = new Scanner(System.in);
+        System.out.println("\n=======================================\n");
+        System.out.println("\nLegends - Monsters and Heroes");
+//                    GameRules.printRules();
+        System.out.print("Choose Board size : ");
+        int size = 8;
+        try {
+            size = ip.nextInt();
+            if (size < 8 || size > 100) throw new Exception("Out of valid range");
+        } catch (InputMismatchException e) {
+            ip.next();
+            System.out.println("Enter valid board size.");
+//            break;
+        } catch (Exception e) {
+            System.out.println(e.toString() + "\nEnter valid board size.");
+//            break;
+        }
+
+        board = new Board(size);
+        numberHeroes = Player.getNumberHeroes();
+        player = new Player("a",1);
+
+
     }
 }

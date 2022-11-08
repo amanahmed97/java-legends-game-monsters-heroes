@@ -1,9 +1,6 @@
 import java.util.*;
 
 public class RunGameMain {
-    public static Board board;
-    public static int numberHeroes = 2;
-    public static Player[] players;
 
     public static void runGameMenu(){
 
@@ -15,8 +12,6 @@ public class RunGameMain {
         System.out.print("\nWelcome to the Java Legends game!!!");
         System.out.println("\n=======================================\n");
 
-        numberHeroes = Player.getNumberHeroes();
-        players = Player.playerSet(numberHeroes);
 
         // Game Menu
         while (true) {
@@ -34,26 +29,7 @@ public class RunGameMain {
 
             switch (option) {
                 case 1:
-                    System.out.println("\n=======================================\n");
-                    System.out.println("\nLegends - Monsters and Heroes");
-//                    RulesTicTacToe.printRules();
-                    System.out.print("Choose Board size : ");
-                    int size = 8;
-                    try {
-                        size = ip.nextInt();
-                        if (size < 8 || size > 100) throw new Exception("Out of valid range");
-                    } catch (InputMismatchException e) {
-                        ip.next();
-                        System.out.println("Enter valid board size.");
-                        break;
-                    } catch (Exception e) {
-                        System.out.println(e.toString() + "\nEnter valid board size.");
-                        break;
-                    }
-
-                    board = new Board(size);
-                    board.printBoard(); // todo remove
-//                    RunGame.runGame();
+                    RunGame.runGame();
                     break;
                 case 2:
                     System.out.println("\n=======================================\n");

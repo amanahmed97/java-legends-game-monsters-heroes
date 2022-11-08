@@ -5,16 +5,24 @@ class Player {
     int team = 0;
     int score = 0;
     String playerMarker;
+    int xPosition = 0;
+    int yPosition = 0;
 
     public Player(String name, int team) {
         this.name = name;
         this.team = team;
+        this.xPosition = 0;
+        this.yPosition = 0;
+        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
     }
 
     public Player(String name, int team, String playerMarker) {
         this.name = name;
         this.team = team;
         this.playerMarker = playerMarker;
+        this.xPosition = 0;
+        this.yPosition = 0;
+        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
     }
 
     public int scoreUpdate(int s) {
@@ -24,6 +32,17 @@ class Player {
 
     public int getScore() {
         return score;
+    }
+
+    public boolean setPosition(int xPosition, int yPosition){
+        // Reset old position
+        RunGame.board.setBoard(this.xPosition, this.yPosition, '-');
+        // New position
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
+
+        return true;
     }
 
     public static int getNumberHeroes() {
