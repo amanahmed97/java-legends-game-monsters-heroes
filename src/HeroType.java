@@ -13,6 +13,10 @@ public class HeroType {
     int agility;
     int gold;
     int inventory; // todo ArrayList
+    ArrayList<Weapons> weaponsInventory;
+    ArrayList<Armory> armoryInventory;
+    ArrayList<Spells> spellsInventory;
+    ArrayList<Potions> potionsInventory;
     public static ArrayList<HeroType> heroList;
 
     public HeroType(String name, int MP, int strength, int agility, int dexterity, int gold, int level) {
@@ -24,6 +28,10 @@ public class HeroType {
         this.dexterity = dexterity;
         this.agility = agility;
         this.gold = gold;
+        this.weaponsInventory = new ArrayList<Weapons>();
+        this.armoryInventory = new ArrayList<Armory>();
+        this.spellsInventory = new ArrayList<Spells>();
+        this.potionsInventory = new ArrayList<Potions>();
     }
 
     public static void populate() throws IOException {

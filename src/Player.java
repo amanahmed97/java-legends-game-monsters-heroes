@@ -82,12 +82,12 @@ class Player {
             System.out.print("Enter Hero Number : ");
             try {
                 heroSelect = ip.nextInt();
-                heroes.add(HeroType.heroList.get(heroSelect-1));
 
-                while(heroSelect<0 || heroSelect>HeroType.heroList.size()){
+                while(heroSelect<1 || heroSelect>HeroType.heroList.size()){
                     System.out.println("Input valid Hero number : ");
                     heroSelect = ip.nextInt();
                 }
+                heroes.add(HeroType.heroList.get(heroSelect-1));
 
             }catch (Exception e){
                 System.out.println("Select valid Hero number.");
@@ -101,6 +101,29 @@ class Player {
         System.out.println("Your Heroes : ");
         for (int i=0; i<heroes.size();i++)
             System.out.println("["+(i+1)+"] "+heroes.get(i).name);
+    }
+
+    public static int selectHero(){
+        printHeroes();
+
+        int heroSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            heroSelect = ip.nextInt();
+
+            while(heroSelect<1 || heroSelect>heroes.size()){
+                System.out.println("Input valid Hero number : ");
+                heroSelect = ip.nextInt();
+            }
+
+        }catch (Exception e){
+            System.out.println("Select valid Hero number.");
+            heroSelect = selectHero()+1;
+        }
+
+        return heroSelect-1;
     }
 
 

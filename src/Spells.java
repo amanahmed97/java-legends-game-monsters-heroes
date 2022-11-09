@@ -1,15 +1,15 @@
 import java.io.*;
 import java.util.*;
 
-public class Spell {
+public class Spells {
     String name;
     int cost;
     int level;
     int damage;
     int mana;
-    public static ArrayList<Spell> spellList;
+    public static ArrayList<Spells> spellsList;
 
-    public Spell(String name, int cost, int level, int damage, int mana) {
+    public Spells(String name, int cost, int level, int damage, int mana) {
         this.name = name;
         this.cost = cost;
         this.level = level;
@@ -18,7 +18,7 @@ public class Spell {
     }
 
     public static void populate() throws IOException {
-        spellList = new ArrayList<Spell>();
+        spellsList = new ArrayList<Spells>();
 
         String line;
         int ctr = 0;
@@ -37,17 +37,17 @@ public class Spell {
                 continue;
             }
 
-            spellList.add(new Spell(iarray[0], Integer.parseInt(iarray[1]), Integer.parseInt(iarray[2]), Integer.parseInt(iarray[3]), Integer.parseInt(iarray[4]) ) );
+            spellsList.add(new Spells(iarray[0], Integer.parseInt(iarray[1]), Integer.parseInt(iarray[2]), Integer.parseInt(iarray[3]), Integer.parseInt(iarray[4]) ) );
             ctr++;
         }
 
     }
 
-    public static void printspellList() {
+    public static void printspellsList() {
         System.out.println("Headers : Name / cost / required level / mana cost");
-        for (int j = 0; j < spellList.size(); j++) {
-            Spell Spell = spellList.get(j);
-            System.out.println("[" + (j + 1) + "] " + Spell.name + "  " + Spell.cost + "  " + Spell.level + "  " + Spell.damage + "  " + Spell.mana);
+        for (int j = 0; j < spellsList.size(); j++) {
+            Spells spells = spellsList.get(j);
+            System.out.println("[" + (j + 1) + "] " + spells.name + "  " + spells.cost + "  " + spells.level + "  " + spells.damage + "  " + spells.mana);
         }
     }
 

@@ -42,11 +42,81 @@ public class Weapons {
     }
 
     public static void printWeaponsList() {
+        System.out.println("WEAPONS LIST\n"+"============");
         System.out.println("Headers : Name / cost / required level / damage reduction");
         for (int j = 0; j < weaponsList.size(); j++) {
             Weapons weapon = weaponsList.get(j);
             System.out.println("[" + (j + 1) + "] " + weapon.name + "  " + weapon.cost + "  " + weapon.level + "  " + weapon.damage);
         }
     }
+
+    public static void printHeroWeapons(int hero) {
+        System.out.println("HERO OWNED WEAPONS\n"+"============");
+        System.out.println("Headers : Name / cost / required level / damage reduction");
+        ArrayList<Weapons> heroWeapons = Player.heroes.get(hero).weaponsInventory;
+        for (int j = 0; j < heroWeapons.size(); j++) {
+            Weapons weapon = heroWeapons.get(j);
+            System.out.println("[" + (j + 1) + "] " + weapon.name + "  " + weapon.cost + "  " + weapon.level + "  " + weapon.damage);
+        }
+    }
+
+    public static boolean buyWeapons(int hero){
+        printHeroWeapons(hero);
+        printWeaponsList();
+
+        int weaponSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            weaponSelect = ip.nextInt();
+
+            while(weaponSelect<1 || weaponSelect>weaponsList.size()){
+                System.out.println("Input valid Weapon number : ");
+                weaponSelect = ip.nextInt();
+            }
+
+        }catch (Exception e){
+            System.out.println("Select valid Weapon number.");
+            return false;
+        }
+
+        if ( !Player.heroes.get(hero).weaponsInventory.contains(weaponsList.get(weaponSelect)) )
+            Player.heroes.get(hero).weaponsInventory.add(weaponsList.get(weaponSelect));
+        else
+            System.out.println("Weapon already owned!");
+
+        return true;
+    }
+
+    public static boolean sellWeapons(int hero){
+        printHeroWeapons(hero);
+        printWeaponsList();
+
+        int weaponSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            weaponSelect = ip.nextInt();
+
+            while(weaponSelect<1 || weaponSelect>weaponsList.size()){
+                System.out.println("Input valid Weapon number : ");
+                weaponSelect = ip.nextInt();
+            }
+
+        }catch (Exception e){
+            System.out.println("Select valid Weapon number.");
+            return false;
+        }
+
+        if ( !Player.heroes.get(hero).weaponsInventory.contains(weaponsList.get(weaponSelect)) )
+            Player.heroes.get(hero).weaponsInventory.add(weaponsList.get(weaponSelect));
+        else
+            System.out.println("Weapon already owned!");
+
+        return true;
+    }
+
 
 }
