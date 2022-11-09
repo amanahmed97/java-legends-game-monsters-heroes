@@ -50,18 +50,20 @@ public class Weapons {
         }
     }
 
-    public static void printHeroWeapons(int hero) {
+    public static void printHeroWeapons(int heroSelect) {
         System.out.println("HERO OWNED WEAPONS\n"+"============");
         System.out.println("Headers : Name / cost / required level / damage reduction");
-        ArrayList<Weapons> heroWeapons = Player.heroes.get(hero).weaponsInventory;
+        ArrayList<Weapons> heroWeapons = Player.heroes.get(heroSelect).weaponsInventory;
         for (int j = 0; j < heroWeapons.size(); j++) {
             Weapons weapon = heroWeapons.get(j);
             System.out.println("[" + (j + 1) + "] " + weapon.name + "  " + weapon.cost + "  " + weapon.level + "  " + weapon.damage);
         }
     }
 
-    public static boolean buyWeapons(int hero){
-        printHeroWeapons(hero);
+    public static boolean buyWeapons(int heroSelect){
+        HeroType hero = Player.heroes.get(heroSelect);
+        System.out.println("Hero's Gold : "+hero.gold);
+        printHeroWeapons(heroSelect);
         printWeaponsList();
 
         int weaponSelect=0;
@@ -81,17 +83,29 @@ public class Weapons {
             return false;
         }
 
-        if ( !Player.heroes.get(hero).weaponsInventory.contains(weaponsList.get(weaponSelect)) )
-            Player.heroes.get(hero).weaponsInventory.add(weaponsList.get(weaponSelect));
+        if ( hero.gold < weaponsList.get(weaponSelect).cost ){
+            System.out.println("Not enough gold.");
+            return false;
+        }
+
+        if ( !hero.weaponsInventory.contains(weaponsList.get(weaponSelect)) ) {
+            hero.weaponsInventory.add(weaponsList.get(weaponSelect));
+            hero.gold -= weaponsList.get(weaponSelect).cost;
+            System.out.println("Weapon bought : "+weaponsList.get(weaponSelect));
+            System.out.println("Hero's Current Gold : "+hero.gold);
+            return true;
+        }
         else
             System.out.println("Weapon already owned!");
 
         return true;
     }
 
-    public static boolean sellWeapons(int hero){
-        printHeroWeapons(hero);
-        printWeaponsList();
+    public static boolean sellWeapons(int heroSelect){
+        HeroType hero = Player.heroes.get(heroSelect);
+        System.out.println("Hero's Gold : "+hero.gold);
+        System.out.println("You will get half the displayed cost of the weapons in your inventory, if you sell.");
+        printHeroWeapons(heroSelect);
 
         int weaponSelect=0;
         Scanner ip = new Scanner(System.in);
@@ -100,7 +114,7 @@ public class Weapons {
             System.out.print("Enter selection : ");
             weaponSelect = ip.nextInt();
 
-            while(weaponSelect<1 || weaponSelect>weaponsList.size()){
+            while(weaponSelect<1 || weaponSelect>hero.weaponsInventory.size()){
                 System.out.println("Input valid Weapon number : ");
                 weaponSelect = ip.nextInt();
             }
@@ -110,10 +124,10 @@ public class Weapons {
             return false;
         }
 
-        if ( !Player.heroes.get(hero).weaponsInventory.contains(weaponsList.get(weaponSelect)) )
-            Player.heroes.get(hero).weaponsInventory.add(weaponsList.get(weaponSelect));
-        else
-            System.out.println("Weapon already owned!");
+        hero.gold += hero.weaponsInventory.get(weaponSelect).cost / 2;
+        System.out.println("Weapon sold : "+hero.weaponsInventory.get(weaponSelect));
+        hero.weaponsInventory.remove(hero.weaponsInventory.get(weaponSelect));
+        System.out.println("Hero's Current Gold : "+hero.gold);
 
         return true;
     }

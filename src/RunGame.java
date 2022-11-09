@@ -63,6 +63,7 @@ public class RunGame {
                 case 'i':
                     break;
                 case 'm':
+                    Market.enterMarket();
                     break;
                 case 'q':
                     System.out.println("\n=======================================\n");

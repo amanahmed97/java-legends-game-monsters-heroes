@@ -49,4 +49,86 @@ public class Armory {
         }
     }
 
+    public static void printHeroArmory(int heroSelect) {
+        System.out.println("HERO OWNED armory\n"+"============");
+        System.out.println("Headers : Name / cost / required level / damage reduction");
+        ArrayList<Armory> heroArmory = Player.heroes.get(heroSelect).armoryInventory;
+        for (int j = 0; j < heroArmory.size(); j++) {
+            Armory armor = heroArmory.get(j);
+            System.out.println("[" + (j + 1) + "] " + armor.name + "  " + armor.cost + "  " + armor.level + "  " + armor.damage);
+        }
+    }
+
+    public static boolean buyArmory(int heroSelect){
+        HeroType hero = Player.heroes.get(heroSelect);
+        System.out.println("Hero's Gold : "+hero.gold);
+        printHeroArmory(heroSelect);
+        printArmoryList();
+
+        int armorSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            armorSelect = ip.nextInt();
+
+            while(armorSelect<1 || armorSelect>armoryList.size()){
+                System.out.println("Input valid Armory number : ");
+                armorSelect = ip.nextInt();
+            }
+
+        }catch (Exception e){
+            System.out.println("Select valid Armory number.");
+            return false;
+        }
+
+        if ( hero.gold < armoryList.get(armorSelect).cost ){
+            System.out.println("Not enough gold.");
+            return false;
+        }
+
+        if ( !hero.armoryInventory.contains(armoryList.get(armorSelect)) ) {
+            hero.armoryInventory.add(armoryList.get(armorSelect));
+            hero.gold -= armoryList.get(armorSelect).cost;
+            System.out.println("Armory bought : "+armoryList.get(armorSelect));
+            System.out.println("Hero's Current Gold : "+hero.gold);
+            return true;
+        }
+        else
+            System.out.println("Armory already owned!");
+
+        return true;
+    }
+
+    public static boolean sellArmory(int heroSelect){
+        HeroType hero = Player.heroes.get(heroSelect);
+        System.out.println("Hero's Gold : "+hero.gold);
+        System.out.println("You will get half the displayed cost of the armory in your inventory, if you sell.");
+        printHeroArmory(heroSelect);
+
+        int armorSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            armorSelect = ip.nextInt();
+
+            while(armorSelect<1 || armorSelect>hero.armoryInventory.size()){
+                System.out.println("Input valid Armory number : ");
+                armorSelect = ip.nextInt();
+            }
+
+        }catch (Exception e){
+            System.out.println("Select valid Armory number.");
+            return false;
+        }
+
+        hero.gold += hero.armoryInventory.get(armorSelect).cost / 2;
+        System.out.println("Armory sold : "+hero.armoryInventory.get(armorSelect));
+        hero.armoryInventory.remove(hero.armoryInventory.get(armorSelect));
+        System.out.println("Hero's Current Gold : "+hero.gold);
+
+        return true;
+    }
+
 }
