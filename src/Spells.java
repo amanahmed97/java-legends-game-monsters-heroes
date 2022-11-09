@@ -32,7 +32,7 @@ public class Spells {
             String[] iarray = line.split(sp);
 
             // Skip the first header line
-            if (ctr == 0 || iarray.length < 7) {
+            if (ctr == 0 || iarray.length < 5) {
                 ctr++;
                 continue;
             }
@@ -43,7 +43,7 @@ public class Spells {
 
     }
 
-    public static void printspellsList() {
+    public static void printSpellsList() {
         System.out.println("Headers : Name / cost / required level / mana cost");
         for (int j = 0; j < spellsList.size(); j++) {
             Spells spells = spellsList.get(j);

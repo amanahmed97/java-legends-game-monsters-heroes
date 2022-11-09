@@ -5,13 +5,13 @@ public class Market {
 
     public static void enterMarket(){
 
-        System.out.println("=====================\n"+"WELCOME TO THE MARKET\n"+"=====================\n");
+        System.out.println("\n=====================\n"+"WELCOME TO THE MARKET\n"+"=====================\n");
 
         int mOption = 0;
         Scanner ip = new Scanner(System.in);
 
         // Market Menu
-        System.out.println("OPTIONS:\n1. BUY \n2. SELL \n3.EXIT");
+        System.out.println("OPTIONS:\n1. BUY \n2. SELL \n3. EXIT");
 
         try{
             System.out.print("Enter : ");
@@ -38,13 +38,13 @@ public class Market {
     }
 
     public static void buyMarket(){
-        System.out.println("SELL MENU\n========");
+        System.out.println("BUY MENU\n========");
 
         int buyOption = 0;
         Scanner ip = new Scanner(System.in);
 
         // Buy Menu
-        System.out.println("SELL ITEMS:\n1. WEAPONRY \n2. ARMORY \n3.POTIONS \n4.SPELLS \n5.RETURN");
+        System.out.println("\nBUY ITEMS:\n1. WEAPONRY \n2. ARMORY \n3. POTIONS \n4. SPELLS \n5. RETURN");
 
         try{
             System.out.print("Enter : ");
@@ -78,13 +78,13 @@ public class Market {
     }
 
     public static void sellMarket(){
-        System.out.println("BUY MENU\n========");
+        System.out.println("\nSELL MENU\n========");
 
         int buyOption = 0;
         Scanner ip = new Scanner(System.in);
 
         // Buy Menu
-        System.out.println("BUY ITEMS:\n1. WEAPONRY \n2. ARMORY \n3.POTIONS \n4.SPELLS \n5.RETURN");
+        System.out.println("SELL ITEMS:\n1. WEAPONRY \n2. ARMORY \n3. POTIONS \n4. SPELLS \n5. RETURN");
 
         try{
             System.out.print("Enter : ");

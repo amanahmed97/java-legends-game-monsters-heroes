@@ -30,7 +30,7 @@ public class Weapons {
             String[] iarray = line.split(sp);
 
             // Skip the first header line
-            if (ctr == 0 || iarray.length < 7) {
+            if (ctr == 0 || iarray.length < 4) {
                 ctr++;
                 continue;
             }
@@ -42,7 +42,7 @@ public class Weapons {
     }
 
     public static void printWeaponsList() {
-        System.out.println("WEAPONS LIST\n"+"============");
+        System.out.println("\nWEAPONS LIST\n"+"============");
         System.out.println("Headers : Name / cost / required level / damage reduction");
         for (int j = 0; j < weaponsList.size(); j++) {
             Weapons weapon = weaponsList.get(j);
@@ -51,7 +51,7 @@ public class Weapons {
     }
 
     public static void printHeroWeapons(int heroSelect) {
-        System.out.println("HERO OWNED WEAPONS\n"+"============");
+        System.out.println("\nHERO OWNED WEAPONS\n"+"================");
         System.out.println("Headers : Name / cost / required level / damage reduction");
         ArrayList<Weapons> heroWeapons = Player.heroes.get(heroSelect).weaponsInventory;
         for (int j = 0; j < heroWeapons.size(); j++) {
@@ -77,7 +77,7 @@ public class Weapons {
                 System.out.println("Input valid Weapon number : ");
                 weaponSelect = ip.nextInt();
             }
-
+            weaponSelect--;
         }catch (Exception e){
             System.out.println("Select valid Weapon number.");
             return false;
@@ -91,7 +91,7 @@ public class Weapons {
         if ( !hero.weaponsInventory.contains(weaponsList.get(weaponSelect)) ) {
             hero.weaponsInventory.add(weaponsList.get(weaponSelect));
             hero.gold -= weaponsList.get(weaponSelect).cost;
-            System.out.println("Weapon bought : "+weaponsList.get(weaponSelect));
+            System.out.println("Weapon bought : "+weaponsList.get(weaponSelect).name);
             System.out.println("Hero's Current Gold : "+hero.gold);
             return true;
         }
@@ -118,14 +118,14 @@ public class Weapons {
                 System.out.println("Input valid Weapon number : ");
                 weaponSelect = ip.nextInt();
             }
-
+            weaponSelect--;
         }catch (Exception e){
             System.out.println("Select valid Weapon number.");
             return false;
         }
 
         hero.gold += hero.weaponsInventory.get(weaponSelect).cost / 2;
-        System.out.println("Weapon sold : "+hero.weaponsInventory.get(weaponSelect));
+        System.out.println("Weapon sold : "+hero.weaponsInventory.get(weaponSelect).name);
         hero.weaponsInventory.remove(hero.weaponsInventory.get(weaponSelect));
         System.out.println("Hero's Current Gold : "+hero.gold);
 

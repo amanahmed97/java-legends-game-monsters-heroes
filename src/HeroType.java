@@ -1,6 +1,4 @@
 import java.io.*;
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class HeroType {
@@ -12,7 +10,7 @@ public class HeroType {
     int dexterity;
     int agility;
     int gold;
-    int inventory; // todo ArrayList
+
     ArrayList<Weapons> weaponsInventory;
     ArrayList<Armory> armoryInventory;
     ArrayList<Spells> spellsInventory;

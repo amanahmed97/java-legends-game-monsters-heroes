@@ -30,7 +30,7 @@ public class Potions {
             String[] iarray = line.split(sp);
 
             // Skip the first header line
-            if (ctr == 0 || iarray.length < 7) {
+            if (ctr == 0 || iarray.length < 5) {
                 ctr++;
                 continue;
             }
@@ -42,7 +42,8 @@ public class Potions {
     }
 
     public static void printPotionsList() {
-        System.out.println("Headers : Name / cost / required level / damage reduction");
+        System.out.println("\nPOTIONS LIST\n"+"============");
+        System.out.println("Headers : Name / cost / required level / attribute increase / attribute affected");
         for (int j = 0; j < potionsList.size(); j++) {
             Potions potions = potionsList.get(j);
             System.out.println("[" + (j + 1) + "] " + potions.name + "  " + potions.cost + "  " + potions.level + "  " + potions.damage);
@@ -50,8 +51,8 @@ public class Potions {
     }
 
     public static void printHeroPotions(int heroSelect) {
-        System.out.println("HERO OWNED potion\n"+"============");
-        System.out.println("Headers : Name / cost / required level / damage reduction");
+        System.out.println("\nHERO OWNED POTIONS\n"+"============");
+        System.out.println("Headers : Name / cost / required level / attribute increase / attribute affected");
         ArrayList<Potions> heroPotions = Player.heroes.get(heroSelect).potionsInventory;
         for (int j = 0; j < heroPotions.size(); j++) {
             Potions potion = heroPotions.get(j);
@@ -76,7 +77,7 @@ public class Potions {
                 System.out.println("Input valid Potion number : ");
                 potionSelect = ip.nextInt();
             }
-
+            potionSelect--;
         }catch (Exception e){
             System.out.println("Select valid Potion number.");
             return false;
@@ -90,7 +91,7 @@ public class Potions {
         if ( !hero.potionsInventory.contains(potionsList.get(potionSelect)) ) {
             hero.potionsInventory.add(potionsList.get(potionSelect));
             hero.gold -= potionsList.get(potionSelect).cost;
-            System.out.println("Potion bought : "+potionsList.get(potionSelect));
+            System.out.println("Potion bought : "+potionsList.get(potionSelect).name);
             System.out.println("Hero's Current Gold : "+hero.gold);
             return true;
         }
@@ -117,14 +118,14 @@ public class Potions {
                 System.out.println("Input valid Potion number : ");
                 potionSelect = ip.nextInt();
             }
-
+            potionSelect--;
         }catch (Exception e){
             System.out.println("Select valid Potion number.");
             return false;
         }
 
         hero.gold += hero.potionsInventory.get(potionSelect).cost / 2;
-        System.out.println("Potion sold : "+hero.potionsInventory.get(potionSelect));
+        System.out.println("Potion sold : "+hero.potionsInventory.get(potionSelect).name);
         hero.potionsInventory.remove(hero.potionsInventory.get(potionSelect));
         System.out.println("Hero's Current Gold : "+hero.gold);
 

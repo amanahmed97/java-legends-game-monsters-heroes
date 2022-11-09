@@ -24,7 +24,7 @@ public class RunGame {
             board.printBoard();
 
             System.out.println("\nMovement: w - Move Up, s - Move Down, a - Move Left, d - Move Right");
-            System.out.println("Actions: i - info, m- Enter Market, q - Quit");
+            System.out.println("Actions: i - info, m - Enter Market, q - Quit");
             System.out.print("Enter: ");
 
 
@@ -102,6 +102,9 @@ public class RunGame {
         numberHeroes = Player.getNumberHeroes();
         player = new Player("Yours Truly",1);
         Player.heroSet(numberHeroes);
-
+        Weapons.populate();
+        Armory.populate();
+        Potions.populate();
+        Spells.populate();
     }
 }

@@ -30,7 +30,7 @@ public class Armory {
             String[] iarray = line.split(sp);
 
             // Skip the first header line
-            if (ctr == 0 || iarray.length < 7) {
+            if (ctr == 0 || iarray.length < 4) {
                 ctr++;
                 continue;
             }
@@ -42,6 +42,7 @@ public class Armory {
     }
 
     public static void printArmoryList() {
+        System.out.println("\nARMORY LIST\n"+"============");
         System.out.println("Headers : Name / cost / required level / damage reduction");
         for (int j = 0; j < armoryList.size(); j++) {
             Armory armory = armoryList.get(j);
@@ -50,7 +51,7 @@ public class Armory {
     }
 
     public static void printHeroArmory(int heroSelect) {
-        System.out.println("HERO OWNED armory\n"+"============");
+        System.out.println("\nHERO OWNED ARMORY\n"+"============");
         System.out.println("Headers : Name / cost / required level / damage reduction");
         ArrayList<Armory> heroArmory = Player.heroes.get(heroSelect).armoryInventory;
         for (int j = 0; j < heroArmory.size(); j++) {
@@ -76,7 +77,7 @@ public class Armory {
                 System.out.println("Input valid Armory number : ");
                 armorSelect = ip.nextInt();
             }
-
+            armorSelect--;
         }catch (Exception e){
             System.out.println("Select valid Armory number.");
             return false;
@@ -90,7 +91,7 @@ public class Armory {
         if ( !hero.armoryInventory.contains(armoryList.get(armorSelect)) ) {
             hero.armoryInventory.add(armoryList.get(armorSelect));
             hero.gold -= armoryList.get(armorSelect).cost;
-            System.out.println("Armory bought : "+armoryList.get(armorSelect));
+            System.out.println("Armory bought : "+armoryList.get(armorSelect).name);
             System.out.println("Hero's Current Gold : "+hero.gold);
             return true;
         }
@@ -117,14 +118,14 @@ public class Armory {
                 System.out.println("Input valid Armory number : ");
                 armorSelect = ip.nextInt();
             }
-
+            armorSelect--;
         }catch (Exception e){
             System.out.println("Select valid Armory number.");
             return false;
         }
 
         hero.gold += hero.armoryInventory.get(armorSelect).cost / 2;
-        System.out.println("Armory sold : "+hero.armoryInventory.get(armorSelect));
+        System.out.println("Armory sold : "+hero.armoryInventory.get(armorSelect).name);
         hero.armoryInventory.remove(hero.armoryInventory.get(armorSelect));
         System.out.println("Hero's Current Gold : "+hero.gold);
 
