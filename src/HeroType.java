@@ -107,8 +107,8 @@ public class HeroType {
     }
 
     public static void printHeroList() {
-        System.out.println("Headers : Name/mana/strength/agility/dexterity/starting money/starting experience");
-        for (int j = 0; j < HeroType.heroList.size(); j++) {
+        System.out.println("Headers : Name / mana / strength / agility / dexterity / starting money / starting experience");
+        for (int j = 0; j < heroList.size(); j++) {
             HeroType hero = heroList.get(j);
             System.out.println("[" + (j + 1) + "] " + hero.name + "  " + hero.MP + "  " + hero.strength + "  " + hero.agility + "  " + hero.dexterity + "  " + hero.gold + "  " + hero.level);
         }
