@@ -141,7 +141,7 @@ public class Potions {
     }
 
     public static boolean selectPotion(int heroSelect){
-        System.out.println("CHOOSE HERO POTION TO EQUIP"+"\n===========================");
+        System.out.println("CHOOSE HERO POTION TO USE"+"\n===========================");
         HeroType hero = Player.heroes.get(heroSelect);
         printHeroPotions(heroSelect);
 
@@ -180,6 +180,9 @@ public class Potions {
         if(potion.attribute.contains("Dexterity")){
             hero.dexterity += potion.increase;
         }
+
+        hero.potionsInventory.remove(potionSelect);
+        System.out.println("Potion "+potion.name+" consumed.\n");
 
         return true;
     }

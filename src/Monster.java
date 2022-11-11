@@ -182,5 +182,27 @@ public class Monster {
         return true;
     }
 
+    public static int selectMonster(){
+        System.out.println("Select which monster to attack : ");
+        Monster.printSpawnMonsters();
+
+        int monsterSelect=0;
+        Scanner ip = new Scanner(System.in);
+        try {
+            System.out.print("Enter monster to attack : ");
+            monsterSelect = ip.nextInt();
+
+            while(monsterSelect<1 || monsterSelect>Monster.spawnMonsters.size()){
+                System.out.println("Input valid Monster number : ");
+                monsterSelect = ip.nextInt();
+            }
+            monsterSelect--;
+            return monsterSelect;
+        }catch (Exception e){
+            System.out.println("Select valid Monster number.");
+            return -1;
+        }
+    }
+
 
 }

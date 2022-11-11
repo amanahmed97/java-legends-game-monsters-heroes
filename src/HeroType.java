@@ -183,24 +183,10 @@ public class HeroType {
     public boolean attack(){
         Random random = new Random();
         // Select which monster to attack
-        System.out.println("Select which monster to attack : ");
-        Monster.printSpawnMonsters();
-
-        int monsterSelect=0;
-        Scanner ip = new Scanner(System.in);
-        try {
-            System.out.print("Enter monster to attack : ");
-            monsterSelect = ip.nextInt();
-
-            while(monsterSelect<1 || monsterSelect>Monster.spawnMonsters.size()){
-                System.out.println("Input valid Monster number : ");
-                monsterSelect = ip.nextInt();
-            }
-            monsterSelect--;
-        }catch (Exception e){
-            System.out.println("Select valid Monster number.");
+        int monsterSelect = Monster.selectMonster();
+        if (monsterSelect<0)
             return false;
-        }
+
         Monster monster = Monster.spawnMonsters.get(monsterSelect);
 
         // Check Monster dodge
@@ -238,6 +224,16 @@ public class HeroType {
         System.out.println("\nHERO : "+name);
 
         return Potions.selectPotion(heroSelect);
+    }
+
+    public boolean castSpell(int heroSelect){
+        Random random = new Random();
+        // Select which monster to attack
+        int monsterSelect = Monster.selectMonster();
+        if (monsterSelect<0)
+            return false;
+
+        return Spells.selectSpell(heroSelect, monsterSelect);
     }
 
 }

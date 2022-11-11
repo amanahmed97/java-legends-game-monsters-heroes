@@ -79,6 +79,7 @@ public class Battle {
                 hero.attack();
                 break;
             case 2:
+                hero.castSpell(heroSelect);
                 break;
             case 3:
                 hero.usePotion(heroSelect);
