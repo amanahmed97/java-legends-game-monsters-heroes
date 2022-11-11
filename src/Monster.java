@@ -113,12 +113,56 @@ public class Monster {
     public static boolean spawnMonsters(){
         spawnMonsters = new ArrayList<Monster>();
         ArrayList<Integer> selected = new ArrayList<Integer>();
-
+        Random random = new Random();
+        //todo scale level
         for(int i=0; i<RunGame.numberHeroes; i++){
-            int randomSelector = 
+            int randomSelector = random.nextInt(monsterList.size());
+            if ( !selected.contains(randomSelector) ) {
+                spawnMonsters.add(monsterList.get(randomSelector));
+                selected.add(randomSelector);
+            }
         }
 
         return true;
     }
+
+    public static void printSpawnMonsters() {
+        System.out.println("Headers : Name / level / damage / defense / dodge chance");
+        for (int j = 0; j < spawnMonsters.size(); j++) {
+            Monster monster = spawnMonsters.get(j);
+            System.out.println("[" + (j + 1) + "] " + monster.name + "  " + monster.level + "  " + monster.damage + "  " + monster.defense + "  " + monster.dodge);
+        }
+    }
+
+    public static boolean monsterTurn(){
+        Random random = new Random();
+
+        for(int i=0; i<spawnMonsters.size(); i++){
+            int randomSelector = random.nextInt(Player.heroes.size());
+
+            if(Player.heroes.get(randomSelector).HP <= 0) {
+                i--;
+                continue;
+            }
+
+            HeroType hero = Player.heroes.get(randomSelector);
+            // Check Hero agility to dodge
+            double dodgeChance = hero.agility * 0.002;
+            int randomDodge = random.nextInt(hero.agility);
+
+            if ( randomDodge > dodgeChance ){
+                // todo armor
+                hero.HP -= spawnMonsters.get(i).damage;
+                System.out.println("Monster "+spawnMonsters.get(i).name+" attacks Hero "+hero.name
+                        +" for damage "+spawnMonsters.get(i).damage);
+            }else{
+                System.out.println("Hero "+hero.name+" dodged Monster attack");
+            }
+
+        }
+
+        return true;
+    }
+
 
 }

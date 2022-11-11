@@ -16,6 +16,8 @@ public class HeroType {
     ArrayList<Spells> spellsInventory;
     ArrayList<Potions> potionsInventory;
     public static ArrayList<HeroType> heroList;
+    Weapons equipWeapon; //todo Selling unequip
+    Armory equipArmor;
 
     public HeroType(String name, int MP, int strength, int agility, int dexterity, int gold, int level) {
         this.name = name;
@@ -30,6 +32,8 @@ public class HeroType {
         this.armoryInventory = new ArrayList<Armory>();
         this.spellsInventory = new ArrayList<Spells>();
         this.potionsInventory = new ArrayList<Potions>();
+        this.equipWeapon = null;
+        this.equipArmor = null;
     }
 
     public static void populate() throws IOException {
@@ -118,6 +122,111 @@ public class HeroType {
             HeroType hero = heroList.get(j);
             System.out.println("[" + (j + 1) + "] " + hero.name + "  " + hero.MP + "  " + hero.strength + "  " + hero.agility + "  " + hero.dexterity + "  " + hero.gold + "  " + hero.level);
         }
+    }
+
+    public boolean equipWeapon(int heroSelect){
+        System.out.println("HERO : "+name+"\n=================");
+        System.out.println("CHOOSE HERO WEAPON TO EQUIP"+"\n============================");
+
+        Weapons.printHeroWeapons(heroSelect);
+
+        int weaponSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            weaponSelect = ip.nextInt();
+
+            while(weaponSelect<1 || weaponSelect>weaponsInventory.size()){
+                System.out.println("Input valid Weapon number : ");
+                weaponSelect = ip.nextInt();
+            }
+            weaponSelect--;
+        }catch (Exception e){
+            System.out.println("Select valid Weapon number.");
+            return false;
+        }
+
+        equipWeapon = weaponsInventory.get(weaponSelect);
+        return true;
+    }
+
+    public boolean equipArmor(int heroSelect){
+        System.out.println("HERO : "+name+"\n=================");
+        System.out.println("CHOOSE HERO ARMOR TO EQUIP"+"\n============================");
+
+        Armory.printHeroArmory(heroSelect);
+
+        int armorSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            armorSelect = ip.nextInt();
+
+            while(armorSelect<1 || armorSelect>weaponsInventory.size()){
+                System.out.println("Input valid Armor number : ");
+                armorSelect = ip.nextInt();
+            }
+            armorSelect--;
+        }catch (Exception e){
+            System.out.println("Select valid Armor number.");
+            return false;
+        }
+
+        equipArmor = armoryInventory.get(armorSelect);
+        return true;
+    }
+
+    public boolean attack(){
+        Random random = new Random();
+        // Select which monster to attack
+        Monster.printSpawnMonsters();
+
+        int monsterSelect=0;
+        Scanner ip = new Scanner(System.in);
+        try {
+            System.out.print("Enter selection : ");
+            monsterSelect = ip.nextInt();
+
+            while(monsterSelect<1 || monsterSelect>Monster.spawnMonsters.size()){
+                System.out.println("Input valid Monster number : ");
+                monsterSelect = ip.nextInt();
+            }
+            monsterSelect--;
+        }catch (Exception e){
+            System.out.println("Select valid Monster number.");
+            return false;
+        }
+        Monster monster = Monster.spawnMonsters.get(monsterSelect);
+
+        // Check Monster dodge
+        double dodgeChance = monster.dodge * 0.01;
+        int randomDodge = random.nextInt(monster.dodge);
+        int heroAttack=0;
+
+        if ( randomDodge > dodgeChance ){
+            // todo defense
+            if (equipWeapon!=null){
+                heroAttack = (int) ( (strength+equipWeapon.damage)*0.05 );
+            }else{
+                heroAttack = (int) ( (strength)*0.05 );
+            }
+
+            monster.HP -= heroAttack;
+
+            System.out.println("Hero "+name+" attacks Monster "+monster.name
+                    +" for damage "+heroAttack);
+
+            // Check if monster is finished
+            if(monster.HP <= 0){
+                System.out.println("Monster "+monster.name+" is finished.");
+            }
+        }else{
+            System.out.println("Monster "+monster.name+" dodged Hero "+name+" attack");
+        }
+
+        return true;
     }
 
 }

@@ -106,7 +106,7 @@ public class Weapons {
         System.out.println("Hero's Gold : "+hero.gold);
         System.out.println("You will get half the displayed cost of the weapons in your inventory, if you sell.");
         printHeroWeapons(heroSelect);
-
+        //todo check equipWeapon
         int weaponSelect=0;
         Scanner ip = new Scanner(System.in);
 

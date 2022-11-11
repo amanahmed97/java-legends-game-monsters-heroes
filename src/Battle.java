@@ -8,11 +8,14 @@ public class Battle {
     public void enterBattle(){
         battleRound=1;
         System.out.println("\n======\n"+"BATTLE"+"\n======");
-
+        // todo condition check
         Scanner ip = new Scanner(System.in);
+        Monster.spawnMonsters();
 
         while(true){
-            System.out.println("ROUND "+battleRound+"\n=========");
+            System.out.println("ROUND "+battleRound+"\n========="+"\nSTATS\n=====");
+            HeroType.printHeroList();
+            Monster.printSpawnMonsters();
 
             switch(attackTurn){
                 case 1:
@@ -20,7 +23,7 @@ public class Battle {
                     attackTurn=2;
                     break;
                 case 2:
-                    monsterTurn();
+                    Monster.monsterTurn();
                     attackTurn=1;
                     break;
             }
@@ -34,10 +37,9 @@ public class Battle {
 
         for (int i=0; i < RunGame.numberHeroes; i++){
 
-            if(Player.heroes.get(i).HP < 1)
+            if(Player.heroes.get(i).HP <= 0)
                 continue;
 
-            System.out.println("HERO : "+Player.heroes.get(i).name);
             heroOptions(i);
         }
 
@@ -49,8 +51,10 @@ public class Battle {
         HeroType hero = Player.heroes.get(heroSelect);
         Scanner ip = new Scanner(System.in);
 
-        System.out.println("HERO SELECT:\n"+"[1] Weapon attack\n"+"[2] Cast spell\n"+"[3] Use potion\n"
-                +"[4] Equip Weapon\n"+"[5] Equip Armor\n");
+        System.out.println("HERO : "+hero.name+"  HP : "+hero.HP);
+
+        System.out.println("HERO SELECT:\n"+"[1] Attack\n"+"[2] Cast spell\n"+"[3] Use potion\n"
+                +"[4] Equip Weapon\n"+"[5] Equip Armor\n"+"[6] Exit\n");
 
         try{
             heroOption = ip.nextInt();
@@ -62,6 +66,7 @@ public class Battle {
         switch(heroOption){
             case 1:
                 // Attack weapon
+                hero.attack();
                 break;
             case 2:
                 break;
@@ -69,8 +74,15 @@ public class Battle {
                 break;
             case 4:
                 // equip weapon
+                hero.equipWeapon(heroSelect);
                 break;
             case 5:
+                hero.equipArmor(heroSelect);
+                break;
+            case 6:
+                System.out.println("\n=======================================\n");
+                System.out.println("Thank You for playing!!\nSee you soon!");
+                System.exit(0);
                 break;
             default:
                 System.out.println("Invalid option.");
