@@ -166,9 +166,9 @@ public class Monster {
             if ( randomDodge > dodgeChance ){
                 // todo armor
                 if(hero.equipArmor != null)
-                    attackDamage = (spawnMonsters.get(i).damage*0.05*spawnMonsters.get(i).level - hero.equipArmor.damage*0.05*hero.level);
+                    attackDamage = (spawnMonsters.get(i).damage*0.02*spawnMonsters.get(i).level - hero.equipArmor.damage*0.05*hero.level);
                 else
-                    attackDamage = (spawnMonsters.get(i).damage*0.05*spawnMonsters.get(i).level);
+                    attackDamage = (spawnMonsters.get(i).damage*0.02*spawnMonsters.get(i).level);
 
                 hero.HP -= attackDamage;
                 System.out.println("\nMonster "+spawnMonsters.get(i).name+" attacks Hero "+hero.name

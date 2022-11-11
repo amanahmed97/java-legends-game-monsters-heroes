@@ -20,7 +20,7 @@ public class RunGame {
 
         while (true) {
             System.out.println("\n=================================================\n");
-            System.out.println("\nGame Turn " + gameTurn);
+            System.out.println("\nGame Turn " + gameTurn+"\n============");
             board.printBoard();
 
             System.out.println("\nMovement: w - Move Up, s - Move Down, a - Move Left, d - Move Right");

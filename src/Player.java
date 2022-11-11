@@ -127,7 +127,40 @@ class Player {
     }
 
     public static void levelUpHeroes(){
-        return;
+        // loop through heroes.
+        for(HeroType hero: Player.heroes){
+            // add experience points for number of monsters defeated, which is same as number of heroes
+            hero.experience += Player.heroes.size() * 2;
+            // for heroes who did not faint, gold gain
+            if (hero.HP>0)
+                hero.gold = hero.level * 100;
+
+            // check experience points
+            if(hero.experience > hero.level*10){
+                hero.level++;
+                // increase hero stats
+                hero.HP = hero.level*100;
+                hero.MP = (int) (hero.MP * 1.1);
+
+                // level up favoured skills
+                if(hero.name.contains("Warrior")){
+                    hero.strength = (int) (hero.strength*1.1);
+                    hero.agility = (int) (hero.agility*1.1);
+                    hero.dexterity = (int) (hero.dexterity*1.05);
+                } else if (hero.name.contains("Paladin")) {
+                    hero.strength = (int) (hero.strength*1.1);
+                    hero.agility = (int) (hero.agility*1.05);
+                    hero.dexterity = (int) (hero.dexterity*1.1);
+                } else if (hero.name.contains("Sorcerer")) {
+                    hero.strength = (int) (hero.strength*1.05);
+                    hero.agility = (int) (hero.agility*1.1);
+                    hero.dexterity = (int) (hero.dexterity*1.1);
+                }
+
+                System.out.println("HERO "+hero.name+" Levels Up!!");
+            }
+        }
+
     }
 
 }

@@ -26,6 +26,7 @@ public class Battle {
                     Monster.monsterTurn();
                     attackTurn=1;
                     battleRound++;
+                    healHeroes();
                     break;
             }
 
@@ -115,5 +116,19 @@ public class Battle {
 
         return false;
     }
+
+    public static void healHeroes(){
+        for(HeroType hero: Player.heroes){
+
+            if(hero.HP > 0){
+                hero.HP = (int) (hero.HP*1.1);
+            }
+            if(hero.MP > 0){
+                hero.MP = (int) (hero.MP*1.1);
+            }
+
+        }
+    }
+
 
 }
