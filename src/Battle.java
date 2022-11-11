@@ -81,6 +81,7 @@ public class Battle {
             case 2:
                 break;
             case 3:
+                hero.usePotion(heroSelect);
                 break;
             case 4:
                 // equip weapon

@@ -234,4 +234,10 @@ public class HeroType {
         return true;
     }
 
+    public boolean usePotion(int heroSelect){
+        System.out.println("\nHERO : "+name);
+
+        return Potions.selectPotion(heroSelect);
+    }
+
 }
