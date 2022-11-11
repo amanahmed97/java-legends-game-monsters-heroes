@@ -10,6 +10,7 @@ public class HeroType {
     int dexterity;
     int agility;
     int gold;
+    int experience;
 
     ArrayList<Weapons> weaponsInventory;
     ArrayList<Armory> armoryInventory;
@@ -19,15 +20,16 @@ public class HeroType {
     Weapons equipWeapon; //todo Selling unequip
     Armory equipArmor;
 
-    public HeroType(String name, int MP, int strength, int agility, int dexterity, int gold, int level) {
+    public HeroType(String name, int MP, int strength, int agility, int dexterity, int gold, int experience) {
         this.name = name;
-        this.level = level;
+        this.level = 1;
         this.HP = level * 100;
         this.MP = MP;
         this.strength = strength;
         this.dexterity = dexterity;
         this.agility = agility;
         this.gold = gold;
+        this.experience = experience;
         this.weaponsInventory = new ArrayList<Weapons>();
         this.armoryInventory = new ArrayList<Armory>();
         this.spellsInventory = new ArrayList<Spells>();
@@ -120,7 +122,7 @@ public class HeroType {
         System.out.println("Headers : Name / mana / strength / agility / dexterity / starting money / starting experience");
         for (int j = 0; j < heroList.size(); j++) {
             HeroType hero = heroList.get(j);
-            System.out.println("[" + (j + 1) + "] " + hero.name + "  " + hero.MP + "  " + hero.strength + "  " + hero.agility + "  " + hero.dexterity + "  " + hero.gold + "  " + hero.level);
+            System.out.println("[" + (j + 1) + "] " + hero.name + "  " + hero.MP + "  " + hero.strength + "  " + hero.agility + "  " + hero.dexterity + "  " + hero.gold + "  " + hero.experience);
         }
     }
 
@@ -152,8 +154,8 @@ public class HeroType {
     }
 
     public boolean equipArmor(int heroSelect){
-        System.out.println("HERO : "+name+"\n=================");
-        System.out.println("CHOOSE HERO ARMOR TO EQUIP"+"\n============================");
+        System.out.println("\nHERO : "+name);
+        System.out.println("CHOOSE HERO ARMOR TO EQUIP"+"\n===========================");
 
         Armory.printHeroArmory(heroSelect);
 
@@ -181,12 +183,13 @@ public class HeroType {
     public boolean attack(){
         Random random = new Random();
         // Select which monster to attack
+        System.out.println("Select which monster to attack : ");
         Monster.printSpawnMonsters();
 
         int monsterSelect=0;
         Scanner ip = new Scanner(System.in);
         try {
-            System.out.print("Enter selection : ");
+            System.out.print("Enter monster to attack : ");
             monsterSelect = ip.nextInt();
 
             while(monsterSelect<1 || monsterSelect>Monster.spawnMonsters.size()){
@@ -208,22 +211,24 @@ public class HeroType {
         if ( randomDodge > dodgeChance ){
             // todo defense
             if (equipWeapon!=null){
-                heroAttack = (int) ( (strength+equipWeapon.damage)*0.05 );
+                heroAttack = (int) ( (strength+equipWeapon.damage)*0.05 - monster.defense*0.05);
             }else{
-                heroAttack = (int) ( (strength)*0.05 );
+                heroAttack = (int) ( (strength)*0.05 - monster.defense*0.05);
             }
 
             monster.HP -= heroAttack;
 
-            System.out.println("Hero "+name+" attacks Monster "+monster.name
+            System.out.println("\nHero "+name+" attacks Monster "+monster.name
                     +" for damage "+heroAttack);
 
             // Check if monster is finished
             if(monster.HP <= 0){
-                System.out.println("Monster "+monster.name+" is finished.");
+                System.out.println("\nMonster "+monster.name+" is finished.");
+                Monster.spawnMonsters.remove(monster);
             }
+
         }else{
-            System.out.println("Monster "+monster.name+" dodged Hero "+name+" attack");
+            System.out.println("\nMonster "+monster.name+" dodged Hero "+name+" attack");
         }
 
         return true;

@@ -111,6 +111,7 @@ public class Monster {
     }
 
     public static boolean spawnMonsters(){
+        // todo scale level
         spawnMonsters = new ArrayList<Monster>();
         ArrayList<Integer> selected = new ArrayList<Integer>();
         Random random = new Random();
@@ -120,17 +121,28 @@ public class Monster {
             if ( !selected.contains(randomSelector) ) {
                 spawnMonsters.add(monsterList.get(randomSelector));
                 selected.add(randomSelector);
+                spawnMonsters.get(i).level = Player.heroes.get(i).level;
+                spawnMonsters.get(i).HP = spawnMonsters.get(i).level*100;
             }
         }
 
         return true;
     }
 
-    public static void printSpawnMonsters() {
+    public static void printSpawnMonstersStats() {
+        System.out.println("SPAWNED MONSTERS\n================");
         System.out.println("Headers : Name / level / damage / defense / dodge chance");
         for (int j = 0; j < spawnMonsters.size(); j++) {
             Monster monster = spawnMonsters.get(j);
             System.out.println("[" + (j + 1) + "] " + monster.name + "  " + monster.level + "  " + monster.damage + "  " + monster.defense + "  " + monster.dodge);
+        }
+    }
+
+    public static void printSpawnMonsters() {
+        System.out.println("SPAWNED MONSTERS\n================");
+        for (int j = 0; j < spawnMonsters.size(); j++) {
+            Monster monster = spawnMonsters.get(j);
+            System.out.println("[" + (j + 1) + "] " + monster.name + " HP: " + monster.HP);
         }
     }
 
@@ -149,14 +161,20 @@ public class Monster {
             // Check Hero agility to dodge
             double dodgeChance = hero.agility * 0.002;
             int randomDodge = random.nextInt(hero.agility);
+            double attackDamage;
 
             if ( randomDodge > dodgeChance ){
                 // todo armor
-                hero.HP -= spawnMonsters.get(i).damage;
-                System.out.println("Monster "+spawnMonsters.get(i).name+" attacks Hero "+hero.name
-                        +" for damage "+spawnMonsters.get(i).damage);
+                if(hero.equipArmor != null)
+                    attackDamage = (spawnMonsters.get(i).damage*0.05*spawnMonsters.get(i).level - hero.equipArmor.damage*0.05*hero.level);
+                else
+                    attackDamage = (spawnMonsters.get(i).damage*0.05*spawnMonsters.get(i).level);
+
+                hero.HP -= attackDamage;
+                System.out.println("\nMonster "+spawnMonsters.get(i).name+" attacks Hero "+hero.name
+                        +" for damage "+attackDamage);
             }else{
-                System.out.println("Hero "+hero.name+" dodged Monster attack");
+                System.out.println("\nHero "+hero.name+" dodged Monster "+spawnMonsters.get(i).name+" attack");
             }
 
         }

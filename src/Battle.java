@@ -5,16 +5,16 @@ public class Battle {
     public static int battleRound=0;
     public static int attackTurn=1;
 
-    public void enterBattle(){
+    public static void enterBattle(){
         battleRound=1;
         System.out.println("\n======\n"+"BATTLE"+"\n======");
         // todo condition check
         Scanner ip = new Scanner(System.in);
         Monster.spawnMonsters();
 
-        while(true){
-            System.out.println("ROUND "+battleRound+"\n========="+"\nSTATS\n=====");
-            HeroType.printHeroList();
+        while(heroCondition() && monsterCondition()){
+            System.out.println("\n\nROUND "+battleRound+"\n========"+"\nSTATS\n=====");
+            Player.printHeroes();
             Monster.printSpawnMonsters();
 
             switch(attackTurn){
@@ -25,15 +25,23 @@ public class Battle {
                 case 2:
                     Monster.monsterTurn();
                     attackTurn=1;
+                    battleRound++;
                     break;
             }
 
-            battleRound++;
+        }
+
+        if(heroCondition()){
+            System.out.println("\nHEROES WIN!!!\n=============");
+            Player.levelUpHeroes();
+        }else{
+            System.out.println("\nGAME OVER!!!\nMonsters defeated you!");
+            System.exit(0);
         }
     }
 
-    public boolean heroTurn(){
-        System.out.println("HERO TURN"+"\n=========");
+    public static boolean heroTurn(){
+        System.out.println("\nHERO TURN"+"\n=========");
 
         for (int i=0; i < RunGame.numberHeroes; i++){
 
@@ -46,7 +54,7 @@ public class Battle {
         return true;
     }
 
-    public boolean heroOptions(int heroSelect){
+    public static boolean heroOptions(int heroSelect){
         int heroOption=0;
         HeroType hero = Player.heroes.get(heroSelect);
         Scanner ip = new Scanner(System.in);
@@ -54,9 +62,10 @@ public class Battle {
         System.out.println("HERO : "+hero.name+"  HP : "+hero.HP);
 
         System.out.println("HERO SELECT:\n"+"[1] Attack\n"+"[2] Cast spell\n"+"[3] Use potion\n"
-                +"[4] Equip Weapon\n"+"[5] Equip Armor\n"+"[6] Exit\n");
+                +"[4] Equip Weapon\n"+"[5] Equip Armor\n"+"[6] Exit");
 
         try{
+            System.out.print("Enter : ");
             heroOption = ip.nextInt();
         }catch (Exception e){
             System.out.println("Enter valid option.");
@@ -65,7 +74,7 @@ public class Battle {
 
         switch(heroOption){
             case 1:
-                // Attack weapon
+                // Attack
                 hero.attack();
                 break;
             case 2:
@@ -90,6 +99,21 @@ public class Battle {
         }
 
         return true;
+    }
+
+    public static boolean heroCondition(){
+        for(HeroType hero: Player.heroes){
+            if(hero.HP > 0)
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean monsterCondition(){
+        if(Monster.spawnMonsters.size() > 0)
+            return true;
+
+        return false;
     }
 
 }

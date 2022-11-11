@@ -10,29 +10,31 @@ public class Market {
         int mOption = 0;
         Scanner ip = new Scanner(System.in);
 
-        // Market Menu
-        System.out.println("OPTIONS:\n1. BUY \n2. SELL \n3. EXIT");
+        while(true) {
+            // Market Menu
+            System.out.println("OPTIONS:\n1. BUY \n2. SELL \n3. EXIT");
 
-        try{
-            System.out.print("Enter : ");
-            mOption = ip.nextInt();
-        }catch (Exception e){
-            System.out.println("Enter valid option.");
-            mOption = 0;
-        }
+            try {
+                System.out.print("Enter : ");
+                mOption = ip.nextInt();
+            } catch (Exception e) {
+                System.out.println("Enter valid option.");
+                mOption = 0;
+            }
 
-        switch (mOption){
-            case 1:
-                buyMarket();
-                break;
-            case 2:
-                sellMarket();
-                break;
-            case 3:
-                return;
-            default:
-                System.out.println("Invalid option");
-                break;
+            switch (mOption) {
+                case 1:
+                    buyMarket();
+                    break;
+                case 2:
+                    sellMarket();
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
         }
 
     }

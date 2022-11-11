@@ -98,9 +98,9 @@ class Player {
     }
 
     public static void printHeroes(){
-        System.out.println("Your Heroes : ");
+        System.out.println("YOUR HEROES :\n=============");
         for (int i=0; i<heroes.size();i++)
-            System.out.println("["+(i+1)+"] "+heroes.get(i).name);
+            System.out.println("["+(i+1)+"] "+heroes.get(i).name+" HP : "+heroes.get(i).HP);
     }
 
     public static int selectHero(){
@@ -126,5 +126,8 @@ class Player {
         return heroSelect-1;
     }
 
+    public static void levelUpHeroes(){
+        return;
+    }
 
 }

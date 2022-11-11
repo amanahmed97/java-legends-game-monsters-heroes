@@ -64,6 +64,7 @@ public class RunGame {
                     break;
                 case 'm':
                     Market.enterMarket();
+                    Battle.enterBattle(); //todo remove
                     break;
                 case 'q':
                     System.out.println("\n=======================================\n");
@@ -106,5 +107,6 @@ public class RunGame {
         Armory.populate();
         Potions.populate();
         Spells.populate();
+        Monster.populate();
     }
 }
