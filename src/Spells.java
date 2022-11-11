@@ -93,6 +93,7 @@ public class Spells {
 
     }
     public static void printSpellsList() {
+        System.out.println("BUY SPELLS\n==========");
         System.out.println("Headers: Name / cost / required level / damage / mana cost");
         for (int j = 0; j < spellsList.size(); j++) {
             Spells spells = spellsList.get(j);
@@ -101,7 +102,7 @@ public class Spells {
     }
 
     public static void printHeroSpells(int heroSelect) {
-        System.out.println("\nHERO OWNED SPELLS\n"+"============");
+        System.out.println("\nHERO OWNED SPELLS\n"+"=================");
         System.out.println("Headers: Name / cost / required level / damage / mana cost");
         ArrayList<Spells> heroSpells = Player.heroes.get(heroSelect).spellsInventory;
         for (int j = 0; j < heroSpells.size(); j++) {
@@ -109,6 +110,86 @@ public class Spells {
             System.out.println("[" + (j + 1) + "] " + spell.name + "  " + spell.cost + "  " + spell.level
                     + "  " + spell.damage + "  " + spell.mana);
         }
+    }
+
+    public static boolean buySpells(int heroSelect){
+        HeroType hero = Player.heroes.get(heroSelect);
+        System.out.println("Hero's Gold : "+hero.gold);
+        printHeroSpells(heroSelect);
+        printSpellsList();
+
+        int spellSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            spellSelect = ip.nextInt();
+
+            while(spellSelect<1 || spellSelect>spellsList.size()){
+                System.out.println("Input valid Spell number : ");
+                spellSelect = ip.nextInt();
+            }
+            spellSelect--;
+        }catch (Exception e){
+            System.out.println("Select valid Spell number.");
+            return false;
+        }
+
+        if ( hero.gold < spellsList.get(spellSelect).cost ){
+            System.out.println("Not enough gold.");
+            return false;
+        }
+        if ( hero.level < spellsList.get(spellSelect).level ){
+            System.out.println("Not at required level to buy this.");
+            return false;
+        }
+
+        if ( !hero.spellsInventory.contains(spellsList.get(spellSelect)) ) {
+            hero.spellsInventory.add(spellsList.get(spellSelect));
+            hero.gold -= spellsList.get(spellSelect).cost;
+            System.out.println("Spell bought : "+spellsList.get(spellSelect).name);
+            System.out.println("Hero's Current Gold : "+hero.gold);
+            return true;
+        }
+        else
+            System.out.println("Spell already owned!");
+
+        return true;
+    }
+
+    public static boolean sellSpells(int heroSelect){
+        HeroType hero = Player.heroes.get(heroSelect);
+        System.out.println("Hero's Gold : "+hero.gold);
+        System.out.println("You will get half the displayed cost of the spell in your inventory, if you sell.");
+        if(hero.spellsInventory.size()==0){
+            System.out.println("No spells in inventory.");
+            return false;
+        }
+        printHeroSpells(heroSelect);
+
+        int spellSelect=0;
+        Scanner ip = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter selection : ");
+            spellSelect = ip.nextInt();
+
+            while(spellSelect<1 || spellSelect>hero.spellsInventory.size()){
+                System.out.println("Input valid Spell number : ");
+                spellSelect = ip.nextInt();
+            }
+            spellSelect--;
+        }catch (Exception e){
+            System.out.println("Select valid Spell number.");
+            return false;
+        }
+
+        hero.gold += hero.spellsInventory.get(spellSelect).cost / 2;
+        System.out.println("Spell sold : "+hero.spellsInventory.get(spellSelect).name);
+        hero.spellsInventory.remove(hero.spellsInventory.get(spellSelect));
+        System.out.println("Hero's Current Gold : "+hero.gold);
+
+        return true;
     }
 
     public static boolean selectSpell(int heroSelect, int monsterSelect){
@@ -123,7 +204,7 @@ public class Spells {
             System.out.print("Enter selection : ");
             spellSelect = ip.nextInt();
 
-            while(spellSelect<1 || spellSelect>hero.potionsInventory.size()){
+            while(spellSelect<1 || spellSelect>hero.spellsInventory.size()){
                 System.out.println("Input valid Spell number : ");
                 spellSelect = ip.nextInt();
             }

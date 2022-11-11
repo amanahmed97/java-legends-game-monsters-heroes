@@ -128,6 +128,10 @@ public class HeroType {
 
     public boolean equipWeapon(int heroSelect){
         System.out.println("HERO : "+name+"\n=================");
+        if(Player.heroes.get(heroSelect).weaponsInventory.size()==0){
+            System.out.println("No weapons in inventory.");
+            return false;
+        }
         System.out.println("CHOOSE HERO WEAPON TO EQUIP"+"\n============================");
 
         Weapons.printHeroWeapons(heroSelect);
@@ -155,6 +159,10 @@ public class HeroType {
 
     public boolean equipArmor(int heroSelect){
         System.out.println("\nHERO : "+name);
+        if(Player.heroes.get(heroSelect).armoryInventory.size()==0){
+            System.out.println("No armor in inventory.");
+            return false;
+        }
         System.out.println("CHOOSE HERO ARMOR TO EQUIP"+"\n===========================");
 
         Armory.printHeroArmory(heroSelect);
@@ -222,7 +230,10 @@ public class HeroType {
 
     public boolean usePotion(int heroSelect){
         System.out.println("\nHERO : "+name);
-
+        if(Player.heroes.get(heroSelect).potionsInventory.size()==0){
+            System.out.println("No potions in inventory.");
+            return false;
+        }
         return Potions.selectPotion(heroSelect);
     }
 

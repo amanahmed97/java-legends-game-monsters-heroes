@@ -105,6 +105,11 @@ public class Armory {
         HeroType hero = Player.heroes.get(heroSelect);
         System.out.println("Hero's Gold : "+hero.gold);
         System.out.println("You will get half the displayed cost of the armory in your inventory, if you sell.");
+        if(hero.armoryInventory.size()==0){
+            System.out.println("No armor in inventory.");
+            return false;
+        }
+
         printHeroArmory(heroSelect);
 
         int armorSelect=0;

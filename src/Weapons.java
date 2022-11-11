@@ -105,6 +105,11 @@ public class Weapons {
         HeroType hero = Player.heroes.get(heroSelect);
         System.out.println("Hero's Gold : "+hero.gold);
         System.out.println("You will get half the displayed cost of the weapons in your inventory, if you sell.");
+        if(hero.weaponsInventory.size()==0){
+            System.out.println("No weapons in inventory.");
+            return false;
+        }
+
         printHeroWeapons(heroSelect);
         //todo check equipWeapon
         int weaponSelect=0;

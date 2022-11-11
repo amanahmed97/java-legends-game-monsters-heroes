@@ -163,4 +163,31 @@ class Player {
 
     }
 
+    public static void printHeroesDetail(){
+        System.out.println("YOUR HEROES :\n=============");
+        for (int i=0; i<heroes.size();i++) {
+            System.out.println("\n[" + (i + 1) + "] " + heroes.get(i).name);
+            System.out.println("    HP : "+heroes.get(i).HP);
+            System.out.println("    MP : "+heroes.get(i).MP);
+            System.out.println("    Level : "+heroes.get(i).level);
+            System.out.println("    Strength : "+heroes.get(i).strength);
+            System.out.println("    Dexterity : "+heroes.get(i).MP);
+            System.out.println("    Agility : "+heroes.get(i).agility);
+            System.out.println("    Gold : "+heroes.get(i).gold);
+            System.out.println("    Experience : "+heroes.get(i).experience);
+            if(heroes.get(i).equipWeapon != null)
+                System.out.println("    Equipped Weapon : "+heroes.get(i).equipWeapon.name);
+            else
+                System.out.println("    Equipped Weapon : "+heroes.get(i).equipWeapon);
+            if(heroes.get(i).equipArmor != null)
+                System.out.println("    Equipped Armor : "+heroes.get(i).equipArmor.name);
+            else
+                System.out.println("    Equipped Armor : "+heroes.get(i).equipArmor);
+            System.out.println("    Weapons Inventory : ");Weapons.printHeroWeapons(i);
+            System.out.println("    Armor Inventory : ");Armory.printHeroArmory(i);
+            System.out.println("    Spells Inventory : ");Spells.printHeroSpells(i);
+            System.out.println("    Potions Inventory : ");Potions.printHeroPotions(i);
+        }
+    }
+
 }

@@ -61,10 +61,11 @@ public class RunGame {
                         player.setPosition(player.xPosition, newYPosition);
                     break;
                 case 'i':
+                    Info.infoDisplay();
                     break;
                 case 'm':
                     Market.enterMarket();
-                    Battle.enterBattle(); //todo remove
+//                    Battle.enterBattle(); //todo remove
                     break;
                 case 'q':
                     System.out.println("\n=======================================\n");

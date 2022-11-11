@@ -69,6 +69,7 @@ public class Market {
                 Potions.buyPotions(hero);
                 break;
             case 4:
+                Spells.buySpells(hero);
                 break;
             case 5:
                 return;
@@ -109,6 +110,7 @@ public class Market {
                 Potions.sellPotions(hero);
                 break;
             case 4:
+                Spells.sellSpells(hero);
                 break;
             case 5:
                 return;

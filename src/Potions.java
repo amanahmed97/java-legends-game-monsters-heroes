@@ -113,6 +113,10 @@ public class Potions {
         HeroType hero = Player.heroes.get(heroSelect);
         System.out.println("Hero's Gold : "+hero.gold);
         System.out.println("You will get half the displayed cost of the potion in your inventory, if you sell.");
+        if(hero.potionsInventory.size()==0){
+            System.out.println("No potions in inventory.");
+            return false;
+        }
         printHeroPotions(heroSelect);
 
         int potionSelect=0;
