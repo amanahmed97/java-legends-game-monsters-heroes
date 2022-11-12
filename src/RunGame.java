@@ -23,7 +23,8 @@ public class RunGame {
             System.out.println("\nGame Turn " + gameTurn+"\n============");
             board.printBoard();
 
-            System.out.println("\nMovement: w - Move Up, s - Move Down, a - Move Left, d - Move Right");
+            System.out.println("\nMarkers: H - Party of Heroes, M - Market, X - Inaccessible space");
+            System.out.println("Movement: w - Move Up, s - Move Down, a - Move Left, d - Move Right");
             System.out.println("Actions: i - info, m - Enter Market, q - Quit");
             System.out.print("Enter: ");
 
@@ -42,30 +43,37 @@ public class RunGame {
             switch (gameInput) {
                 case 'w':
                     newXPosition = player.xPosition-1;
-                    if (Board.validPosition(newXPosition, player.yPosition))
+                    if (Board.validPosition(newXPosition, player.yPosition)) {
                         player.setPosition(newXPosition, player.yPosition);
+                        generateBattle();
+                    }
                     break;
                 case 'a':
                     newYPosition = player.yPosition-1;
-                    if (Board.validPosition(player.xPosition, newYPosition))
+                    if (Board.validPosition(player.xPosition, newYPosition)) {
                         player.setPosition(player.xPosition, newYPosition);
+                        generateBattle();
+                    }
                     break;
                 case 's':
                     newXPosition = player.xPosition+1;
-                    if (Board.validPosition(newXPosition, player.yPosition))
+                    if (Board.validPosition(newXPosition, player.yPosition)) {
                         player.setPosition(newXPosition, player.yPosition);
+                        generateBattle();
+                    }
                     break;
                 case 'd':
                     newYPosition = player.yPosition+1;
-                    if (Board.validPosition(player.xPosition, newYPosition))
+                    if (Board.validPosition(player.xPosition, newYPosition)) {
                         player.setPosition(player.xPosition, newYPosition);
+                        generateBattle();
+                    }
                     break;
                 case 'i':
                     Info.infoDisplay();
                     break;
                 case 'm':
                     Market.enterMarket();
-//                    Battle.enterBattle(); //todo remove
                     break;
                 case 'q':
                     System.out.println("\n=======================================\n");
@@ -109,5 +117,18 @@ public class RunGame {
         Potions.populate();
         Spells.populate();
         Monster.populate();
+    }
+
+    public static boolean generateBattle(){
+        if(board.getBoardSymbol(player.xPosition, player.yPosition) == 'M')
+            return false;
+        // Roll the dice to check for battle
+        Random random = new Random();
+        int battleChance = random.nextInt(6)+1;
+
+        if (battleChance==6)
+            Battle.enterBattle();
+
+        return true;
     }
 }

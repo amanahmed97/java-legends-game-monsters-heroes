@@ -38,7 +38,11 @@ public class Board {
             System.out.print("+\n");
 
             for (int j = 0; j < dimension; j++) {
-                if (BoardMap[i][j].symbol == '-')
+                if (RunGame.player.xPosition==i && RunGame.player.yPosition==j && BoardMap[i][j].symbol=='M') {
+                    System.out.print("| H/M");
+                } else if (RunGame.player.xPosition==i && RunGame.player.yPosition==j) {
+                    System.out.print("|  H");
+                }else if (BoardMap[i][j].symbol == '-')
                     System.out.print("|   ");
                 else
                     System.out.print("|  " + BoardMap[i][j].symbol);
@@ -46,7 +50,10 @@ public class Board {
 //                if ((dimension * dimension > 9 && (i * dimension + j) < 9) || (dimension * dimension > 9 && BoardMap[i][j].symbol != '-'))
 //                    System.out.print("   ");
 //                else
-                System.out.print("  ");
+                if (RunGame.player.xPosition==i && RunGame.player.yPosition==j && BoardMap[i][j].symbol=='M')
+                    System.out.print(" ");
+                else
+                    System.out.print("  ");
             }
             System.out.print("|\n");
         }
@@ -69,8 +76,11 @@ public class Board {
     }
 
     public static boolean validPosition(int newXPosition, int newYPosition){
-        if( newXPosition<0 || newYPosition<0 || newXPosition>dimension || newYPosition>dimension
-                 || RunGame.board.getBoardSymbol(newXPosition, newYPosition)=='X' ) {
+        if( newXPosition<0 || newYPosition<0 || newXPosition>dimension || newYPosition>dimension) {
+            System.out.println("Invalid move.");
+            return false;
+        }
+        if( RunGame.board.getBoardSymbol(newXPosition, newYPosition)=='X' ){
             System.out.println("Invalid move.");
             return false;
         }

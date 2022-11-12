@@ -15,7 +15,7 @@ class Player {
         this.team = team;
         this.xPosition = 0;
         this.yPosition = 0;
-        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
+//        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
         heroes = new ArrayList<HeroType>();
     }
 
@@ -25,7 +25,7 @@ class Player {
         this.playerMarker = playerMarker;
         this.xPosition = 0;
         this.yPosition = 0;
-        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
+//        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
         heroes = new ArrayList<HeroType>();
     }
 
@@ -40,11 +40,11 @@ class Player {
 
     public boolean setPosition(int xPosition, int yPosition){
         // Reset old position
-        RunGame.board.setBoard(this.xPosition, this.yPosition, '-');
+//        RunGame.board.setBoard(this.xPosition, this.yPosition, '-');
         // New position
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
+//        RunGame.board.setBoard(this.xPosition, this.yPosition, 'H');
 
         return true;
     }
