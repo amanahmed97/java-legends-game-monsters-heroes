@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Board {
     int rows;
     int columns;
@@ -20,6 +22,8 @@ public class Board {
             for (int j=0; j<n; j++)
                 BoardMap[i][j] = new BoardMarker(i*n+j);
         }
+        generateInaccessibleSpaces();
+        generateMarketSpaces();
     }
 
     public void printBoard() {
@@ -37,7 +41,7 @@ public class Board {
                 if (BoardMap[i][j].symbol == '-')
                     System.out.print("|   ");
                 else
-                System.out.print("|  " + BoardMap[i][j].symbol);
+                    System.out.print("|  " + BoardMap[i][j].symbol);
 
 //                if ((dimension * dimension > 9 && (i * dimension + j) < 9) || (dimension * dimension > 9 && BoardMap[i][j].symbol != '-'))
 //                    System.out.print("   ");
@@ -65,12 +69,35 @@ public class Board {
     }
 
     public static boolean validPosition(int newXPosition, int newYPosition){
-        if( newXPosition<0 || newYPosition<0 || newXPosition>dimension || newYPosition>dimension ) {
+        if( newXPosition<0 || newYPosition<0 || newXPosition>dimension || newYPosition>dimension
+                 || RunGame.board.getBoardSymbol(newXPosition, newYPosition)=='X' ) {
             System.out.println("Invalid move.");
             return false;
         }
 
         return true;
+    }
+
+    public void generateInaccessibleSpaces(){
+        int numSpaces = (int) (dimension*dimension * 0.2);
+        Random random = new Random();
+
+        for(int i=0;i<numSpaces;i++){
+            int xpos = random.nextInt(dimension);
+            int ypos = random.nextInt(dimension);
+            setBoard(xpos, ypos, 'X');
+        }
+    }
+
+    public void generateMarketSpaces(){
+        int numSpaces = (int) (dimension*dimension * 0.3);
+        Random random = new Random();
+
+        for(int i=0;i<numSpaces;i++){
+            int xpos = random.nextInt(dimension);
+            int ypos = random.nextInt(dimension);
+            setBoard(xpos, ypos, 'M');
+        }
     }
 
 }
