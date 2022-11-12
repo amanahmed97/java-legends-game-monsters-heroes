@@ -51,7 +51,7 @@ public class Weapons {
     }
 
     public static void printHeroWeapons(int heroSelect) {
-        System.out.println("\nHERO OWNED WEAPONS\n"+"================");
+        System.out.println("\nHERO OWNED WEAPONS\n"+"==================");
         System.out.println("Headers : Name / cost / required level / damage reduction");
         ArrayList<Weapons> heroWeapons = Player.heroes.get(heroSelect).weaponsInventory;
         for (int j = 0; j < heroWeapons.size(); j++) {

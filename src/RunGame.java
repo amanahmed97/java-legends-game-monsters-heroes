@@ -93,19 +93,21 @@ public class RunGame {
         Scanner ip = new Scanner(System.in);
         System.out.println("\n=======================================\n");
         System.out.println("\nLegends - Monsters and Heroes");
-//                    GameRules.printRules();
+        System.out.println("Choose Board size between 6 and 1000 [8 - Recommended]");
         System.out.print("Choose Board size : ");
         int size = 8;
         try {
             size = ip.nextInt();
-            if (size < 8 || size > 100) throw new Exception("Out of valid range");
+            if (size < 6 || size > 1000) throw new Exception("Out of valid range");
         } catch (InputMismatchException e) {
             ip.next();
-            System.out.println("Enter valid board size.");
-//            break;
+            System.out.println("Valid board size not selected.");
+            System.out.println("Going with default board size 8.");
+            size=8;
         } catch (Exception e) {
-            System.out.println(e.toString() + "\nEnter valid board size.");
-//            break;
+            System.out.println(e.toString() + "\nValid board size not selected.");
+            System.out.println("Going with default board size 8.");
+            size=8;
         }
 
         board = new Board(size);
