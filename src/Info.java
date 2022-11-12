@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Info {
+//    Contains the methods for displaying heroes stats and attributes and equip from inventory.
     public static void infoDisplay(){
         System.out.println("INFO DISPLAY\n============");
         Player.printHeroesDetail();

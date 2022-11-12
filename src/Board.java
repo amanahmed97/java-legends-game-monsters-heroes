@@ -1,6 +1,8 @@
 import java.util.Random;
 
 public class Board {
+//    Creates the board and movement to enable running of game world.
+//	Contains logic for different tiles like market, inaccessible spaces and common spaces.
     int rows;
     int columns;
     public static int dimension;

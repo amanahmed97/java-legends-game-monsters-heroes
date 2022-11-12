@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Spells {
+//    Has the attributes and values of the spells and their buy, sell, attack methods.
     String name;
     int cost;
     int level;

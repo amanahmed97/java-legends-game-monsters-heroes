@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Battle {
+//    	Contains the implementation of the battle rounds between heroes and monsters.
     public static int battleRound=0;
     public static int attackTurn=1;
 

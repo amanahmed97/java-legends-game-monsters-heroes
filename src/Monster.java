@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Monster {
+//    Has the implementation and attributes of the monsters from parsing text files to creation and methods for monster's actions.
     String name;
     int level;
     int HP;

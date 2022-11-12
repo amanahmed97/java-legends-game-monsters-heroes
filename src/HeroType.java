@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class HeroType {
+//    	Has the implementation and attributes of the heroes from parsing text files to creation and methods for hero's actions.
     String name;
     int level;
     int HP;

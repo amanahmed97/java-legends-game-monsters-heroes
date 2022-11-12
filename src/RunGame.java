@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class RunGame {
+    // Contains the main while loop and switch case, conditions that the game runs on.
     public static Board board;
     public static int numberHeroes = 1;
     public static Player player;

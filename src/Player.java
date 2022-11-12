@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.*;
 
 class Player {
+//    Contains the Player heroes and attributes, methods related to Player heroes.
     String name;
     int team = 0;
     int score = 0;

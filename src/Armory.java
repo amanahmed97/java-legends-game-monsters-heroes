@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Armory {
+//    Has the attributes and values of the armors and their buy, sell, equip methods.
     String name;
     int cost;
     int level;

@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Potions {
+//    Has the attributes and values of the potions and their buy, sell, consume methods.
     String name;
     int cost;
     int level;

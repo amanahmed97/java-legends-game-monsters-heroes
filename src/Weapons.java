@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Weapons {
+//    	Has the attributes and values of the weapons and their buy, sell, attack methods.
     String name;
     int cost;
     int level;

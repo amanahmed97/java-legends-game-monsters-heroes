@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class RunGameMain {
-
+// Has the initial Game Menu with method to run menu options
     public static void runGameMenu() throws IOException {
 
         //Initialize the objects of the game

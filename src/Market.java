@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Market {
-
+//    Contains the implementation of the marketplace where heroes can buy and sell inventory.
     public static void enterMarket(){
         // check if player in on Market tile
         if(RunGame.board.getBoardSymbol(RunGame.player.xPosition,RunGame.player.yPosition) != 'M'){
